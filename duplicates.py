@@ -9,7 +9,7 @@ from hashlib import md5
 from os import getcwd
 from os.path import isfile, getsize, join
 from sys import argv
-from typing import List, Set
+from typing import List, Set, DefaultDict
 
 
 @lru_cache(maxsize=None)
@@ -22,8 +22,8 @@ def filehash(filename: str) -> bytes:
 
 
 def find_duplicates(directories: List[str]) -> List[List[str]]:
-    files_by_size = defaultdict(set)  # type: defaultdict[int, Set[str]]
-    duplicates_by_hash = defaultdict(set)  # type: defaultdict[bytes, Set[str]]
+    files_by_size = defaultdict(set)  # type: DefaultDict[int, Set[str]]
+    duplicates_by_hash = defaultdict(set)  # type: DefaultDict[bytes, Set[str]]
     for directory in directories:
         for path in iglob(join(directory, '**', '*.*')):
             if isfile(path):
